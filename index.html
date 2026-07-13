@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manthan &amp; Akansha — Shubh Vivah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Tiro+Devanagari+Marathi:ital@0;1&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --maroon:#BD7286;
+    --maroon-dark:#8A4E63;
+    --gold:#E3B573;
+    --gold-deep:#C99248;
+    --gold-light:#F5DFAE;
+    --turmeric:#EFA97E;
+    --peacock:#7FA396;
+    --ivory:#FFFBF6;
+    --ivory-deep:#FBEFE1;
+    --ink:#5B3F49;
+    --display: 'Cormorant Garamond', serif;
+    --devanagari: 'Tiro Devanagari Marathi', serif;
+    --body: 'Mukta', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:transparent;
+    color:var(--ivory);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-1;
+    background: linear-gradient(180deg,
+      #FCE7EC 0%,
+      #FDF0E1 30%,
+      #F6EAF4 62%,
+      #ECE4F3 100%);
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .dev{font-family:var(--devanagari);}
+
+  /* ============ SHARED PATTERNS ============ */
+  .kasa-border{
+    height:14px;
+    width:100%;
+    background:
+      repeating-linear-gradient(115deg,
+        var(--maroon) 0 6px,
+        var(--gold) 6px 12px,
+        var(--maroon-dark) 12px 18px,
+        var(--gold) 18px 24px);
+    opacity:.9;
+  }
+  .kasa-border.thin{height:6px;}
+
+  .section-eyebrow{
+    font-family:var(--devanagari);
+    color:var(--peacock);
+    font-size:1.15rem;
+    letter-spacing:.05em;
+    display:block;
+    margin-bottom:.35rem;
+  }
+  .section-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(2rem, 4vw, 3.2rem);
+    color:var(--maroon-dark);
+  }
+  .section-wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:5rem 1.5rem;
+  }
+  .center{text-align:center;}
+
+  /* visible focus for accessibility */
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:center; gap:2rem;
+    padding:1rem 1rem;
+    background:rgba(246,237,224,0);
+    z-index:100;
+    transition:background .4s ease, box-shadow .4s ease, padding .4s ease;
+    pointer-events:none;
+  }
+  .nav.show{
+    background:rgba(246,237,224,.94);
+    box-shadow:0 2px 18px rgba(74,17,32,.08);
+    pointer-events:auto;
+  }
+  .nav a{
+    font-family:var(--display);
+    font-size:1.05rem;
+    letter-spacing:.04em;
+    text-decoration:none;
+    color:var(--maroon-dark);
+    font-weight:600;
+    opacity:.85;
+  }
+  .nav a:hover{opacity:1; color:var(--turmeric);}
+
+  /* ============ HERO / ANTARPAT ============ */
+  .hero{
+    position:relative;
+    height:100svh;
+    min-height:560px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    background:transparent;
+  }
+  .curtain{
+    position:absolute; top:0; bottom:0; width:52%;
+    background:
+      linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    z-index:20;
+    display:flex; align-items:center;
+    box-shadow:0 0 60px rgba(0,0,0,.25) inset;
+  }
+  .curtain::after{
+    content:"";
+    position:absolute; top:0; bottom:0; width:10px;
+    background:repeating-linear-gradient(180deg, var(--gold) 0 10px, var(--gold-light) 10px 20px);
+  }
+  .curtain-l{left:0;}
+  .curtain-l::after{right:0;}
+  .curtain-r{right:0;}
+  .curtain-r::after{left:0;}
+  .curtain-motif{
+    font-family:var(--devanagari);
+    color:var(--gold-light);
+    font-size:3rem;
+    opacity:.35;
+    width:100%;
+    text-align:center;
+  }
+  .curtain-l.open{ animation: slideLeft 1.6s cubic-bezier(.77,0,.18,1) .5s forwards; }
+  .curtain-r.open{ animation: slideRight 1.6s cubic-bezier(.77,0,.18,1) .5s forwards; }
+  @keyframes slideLeft{ to{ transform:translateX(-105%); } }
+  @keyframes slideRight{ to{ transform:translateX(105%); } }
+
+  .hero-content{
+    position:relative; z-index:10;
+    text-align:center;
+    max-width:720px;
+    padding:1.5rem;
+    opacity:0;
+  }
+  .hero-content.show{ animation: fadeUp 1.2s ease forwards; }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+  .invocation{
+    font-family:var(--devanagari);
+    color:var(--maroon-dark);
+    font-size:1.25rem;
+    margin-bottom:1.1rem;
+    letter-spacing:.03em;
+  }
+  .names{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.6rem, 8vw, 5rem);
+    color:var(--maroon-dark);
+    line-height:1.05;
+    text-shadow:0 2px 18px rgba(138,78,99,.12);
+  }
+  .names .amp{
+    color:var(--gold-deep);
+    font-style:italic;
+    font-weight:500;
+    padding:0 .25rem;
+  }
+  .names-dev{
+    font-family:var(--devanagari);
+    font-size:clamp(1.4rem, 3.4vw, 2rem);
+    color:var(--maroon);
+    margin-top:.4rem;
+  }
+  .tagline{
+    margin-top:1.1rem;
+    font-size:1.05rem;
+    color:var(--ink);
+    opacity:.85;
+  }
+
+  .countdown{
+    margin-top:2.2rem;
+    display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+  }
+  .cd-unit{
+    background:var(--ivory-deep);
+    border:1px solid rgba(122,27,52,.25);
+    border-radius:6px;
+    min-width:78px;
+    padding:.75rem .5rem;
+  }
+  .cd-num{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:2rem;
+    color:var(--maroon);
+    display:block;
+  }
+  .cd-label{
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--peacock);
+  }
+  .cd-note{
+    margin-top:.6rem;
+    font-size:.75rem;
+    color:var(--maroon);
+    opacity:.7;
+    font-style:italic;
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:1.6rem; left:50%; transform:translateX(-50%);
+    z-index:10;
+    font-size:.8rem;
+    color:var(--maroon-dark);
+    opacity:0;
+  }
+  .scroll-cue.show{
+    animation: fadeUp 1s ease forwards, bob 2s ease-in-out 1s infinite;
+    display:flex; flex-direction:column; align-items:center; gap:.3rem;
+  }
+  @keyframes bob{ 0%,100%{transform:translate(-50%,0);} 50%{transform:translate(-50%,6px);} }
+
+  /* ============ REVEAL ON SCROLL ============ */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ============ OUR STORY ============ */
+  .story{ background:transparent; }
+  .timeline{
+    position:relative;
+    margin-top:3rem;
+    padding-left:0;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute; left:50%; top:0; bottom:0; width:2px;
+    background:linear-gradient(180deg, var(--gold), var(--peacock));
+    transform:translateX(-50%);
+  }
+  .t-item{
+    position:relative;
+    width:50%;
+    padding:0 3rem 3.2rem;
+  }
+  .t-item:nth-child(odd){ left:0; text-align:right; }
+  .t-item:nth-child(even){ left:50%; text-align:left; }
+  .t-item::before{
+    content:"❀";
+    position:absolute; top:0;
+    color:var(--gold);
+    background:var(--ivory);
+    font-size:1.3rem;
+    width:1.6rem; height:1.6rem;
+    line-height:1.6rem;
+    text-align:center;
+  }
+  .t-item:nth-child(odd)::before{ right:-.8rem; }
+  .t-item:nth-child(even)::before{ left:-.8rem; }
+  .t-eyebrow{ font-family:var(--devanagari); color:var(--peacock); font-size:1.05rem; }
+  .t-title{ font-family:var(--display); font-weight:600; font-size:1.5rem; color:var(--maroon-dark); margin:.15rem 0 .4rem; }
+  .t-text{ font-size:.95rem; color:var(--ink); opacity:.85; }
+
+  @media(max-width:720px){
+    .timeline::before{ left:1rem; }
+    .t-item, .t-item:nth-child(even){ width:100%; left:0; text-align:left; padding:0 0 2.6rem 2.6rem; }
+    .t-item::before, .t-item:nth-child(even)::before{ left:.2rem; right:auto; }
+  }
+
+  /* ============ FLOWER PETAL SHOWER ============ */
+  .petal-shower{
+    position:fixed; inset:0; z-index:60;
+    pointer-events:none; overflow:hidden;
+  }
+  .petal{
+    position:absolute; top:-5%;
+    border-radius:50% 0 50% 50%;
+    animation-name: petalFall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    opacity:0;
+  }
+  @keyframes petalFall{
+    0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+    8%{ opacity:.9; }
+    100%{ transform:translate(var(--drift,40px), 112vh) rotate(360deg); opacity:.75; }
+  }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    background:var(--maroon-dark);
+    color:var(--ivory);
+    text-align:center;
+    padding:4rem 1.5rem 3rem;
+  }
+  .footer .dev{ font-size:1.3rem; color:var(--gold-light); display:block; margin-bottom:.6rem; }
+  .footer-names{ font-family:var(--display); font-size:2.1rem; font-weight:600; color:var(--ivory); }
+  .footer-note{ margin-top:.8rem; font-size:.9rem; opacity:.75; max-width:480px; margin-left:auto; margin-right:auto; }
+  .footer-strip{ margin-top:2.2rem; }
+
+  /* ============ ENTRY GATE (envelope) ============ */
+  .entry-gate{
+    position:fixed; inset:0; z-index:999;
+    background: conic-gradient(from 45deg at 50% 42%,
+      var(--maroon) 0deg 90deg,
+      var(--maroon-dark) 90deg 180deg,
+      var(--maroon) 180deg 270deg,
+      var(--maroon-dark) 270deg 360deg);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .8s ease, visibility .8s ease;
+  }
+  .entry-gate::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(rgba(231,206,124,.35) 1px, transparent 1.5px);
+    background-size:26px 26px;
+    opacity:.5;
+  }
+  .entry-gate.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  .seal-btn{
+    position:absolute; top:42%; left:50%; transform:translate(-50%,-50%);
+    width:104px; height:104px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 55%, #93720F 100%);
+    border:6px solid var(--ivory);
+    box-shadow:0 10px 28px rgba(0,0,0,.4);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    animation: sealPulse 2.4s ease-in-out infinite;
+    z-index:2;
+  }
+  .seal-btn:hover{ filter:brightness(1.06); }
+  @keyframes sealPulse{ 0%,100%{ box-shadow:0 10px 28px rgba(0,0,0,.4); } 50%{ box-shadow:0 10px 28px rgba(0,0,0,.4), 0 0 0 10px rgba(231,206,124,.15); } }
+  .seal-inner{ font-family:var(--devanagari); font-size:1.7rem; color:var(--maroon-dark); }
+
+  .entry-text{
+    position:absolute; top:64%; left:50%; transform:translate(-50%,0);
+    text-align:center; width:88%; max-width:420px;
+    display:flex; flex-direction:column; gap:.6rem;
+  }
+  .entry-title{
+    font-family:var(--display); font-style:italic; font-weight:600;
+    font-size:clamp(2.2rem,7vw,3rem);
+    color:var(--ivory);
+  }
+  .entry-sub{
+    font-size:.95rem; color:var(--gold-light); opacity:.9;
+  }
+
+  .sound-toggle{
+    position:fixed; bottom:1.2rem; right:1.2rem; z-index:90;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--maroon); color:var(--ivory);
+    border:2px solid var(--gold); font-size:1.1rem;
+    cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.25);
+  }
+
+  /* ============ SAVE THE DATE (scratch reveal) ============ */
+  .save-date{ background:var(--ivory-deep); }
+  .savedate-wrap{
+    display:grid; grid-template-columns:1.15fr .85fr;
+    gap:2.5rem; align-items:center;
+  }
+  .sd-kicker{ font-size:.95rem; color:var(--peacock); margin-top:.2rem; }
+  .sd-names{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2rem,5vw,3rem); color:var(--maroon-dark);
+    margin:.6rem 0 1.7rem;
+  }
+  .sd-names .amp{ color:var(--turmeric); font-style:italic; }
+
+  .scratch-wrap{ position:relative; max-width:420px; }
+  .scratch-content{
+    display:flex; flex-direction:column; gap:1rem;
+    padding:1.6rem 1.4rem; background:var(--ivory);
+    border:1px solid rgba(122,27,52,.15); border-radius:8px;
+  }
+  .scratch-content .cd-unit-row{ display:flex; gap:.9rem; flex-wrap:wrap; }
+  .sd-date-reveal{ display:flex; flex-direction:column; gap:.15rem; text-align:center; }
+  .sd-date-dev{ color:var(--peacock); font-size:1.15rem; }
+  .sd-date-en{
+    font-family:var(--display); font-weight:700; font-size:1.9rem;
+    color:var(--maroon); letter-spacing:.02em;
+  }
+  .scratch-canvas{
+    position:absolute; inset:0; border-radius:8px;
+    cursor:pointer; touch-action:none;
+  }
+  .scratch-canvas.done{ opacity:0; pointer-events:none; transition:opacity .8s ease; }
+  .scratch-hint{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-family:var(--display); font-style:italic; color:var(--ivory);
+    font-size:1.05rem; letter-spacing:.03em; pointer-events:none;
+    text-align:center; width:80%;
+  }
+  .scratch-hint.done{ opacity:0; transition:opacity .5s ease; }
+
+  .sd-savethedate{
+    margin-top:1.7rem; font-size:.8rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--peacock);
+  }
+  .sd-events-link{
+    display:inline-block; margin-top:.3rem;
+    font-family:var(--display); font-weight:600; font-size:1.4rem;
+    color:var(--maroon); text-decoration:none;
+    border-bottom:1px solid var(--gold); padding-bottom:2px;
+  }
+  .sd-events-link:hover{ color:var(--turmeric); }
+
+  .couple-art{ width:100%; max-width:240px; margin:0 auto; display:block; }
+
+  @media(max-width:780px){
+    .savedate-wrap{ grid-template-columns:1fr; }
+    .savedate-art{ order:-1; max-width:200px; margin:0 auto; }
+  }
+
+  /* ============ THE FAMILIES ============ */
+  .families{ background:var(--ivory); }
+  .fam-kicker{
+    font-size:.8rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--peacock); margin-bottom:.3rem;
+  }
+  .fam-title{
+    font-family:var(--display); font-style:italic; font-weight:600;
+    font-size:clamp(2.4rem,6vw,3.4rem); color:var(--gold-deep);
+    text-shadow:0 1px 0 rgba(138,78,99,.08);
+  }
+  .fam-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:1.75rem; margin-top:3rem;
+  }
+  .fam-card{
+    background:var(--ivory-deep);
+    border-radius:8px;
+    padding:2.2rem 1.8rem;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(74,17,32,.06);
+  }
+  .fam-card-title{
+    font-family:var(--display); font-weight:700; font-size:1.6rem;
+    color:var(--maroon);
+  }
+  .fam-divider{
+    width:60px; height:1px; background:var(--gold);
+    margin:1rem auto 1.2rem;
+  }
+  .fam-name{ font-size:1rem; color:var(--ink); opacity:.85; margin-bottom:.4rem; }
+  .fam-name:last-child{ margin-bottom:0; }
+
+  /* ============ GALLERY (card stack) ============ */
+  .gallery{ background:var(--ivory-deep); }
+  .stack-area{
+    margin-top:3rem;
+    display:flex; flex-direction:column; align-items:center; gap:1.4rem;
+  }
+  .card-stack{
+    position:relative;
+    width:min(78vw, 320px);
+    height:min(78vw * 1.28, 400px);
+    height:clamp(280px, 78vw, 400px);
+  }
+  .g-card{
+    position:absolute;
+    top:50%; left:50%;
+    width:100%; height:100%;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(138,78,99,.22), 0 2px 8px rgba(138,78,99,.12);
+    cursor:pointer;
+    background:var(--ivory);
+    border:6px solid var(--ivory);
+    transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .5s ease, box-shadow .4s ease;
+  }
+  .g-card:focus-visible{ outline:3px solid var(--gold-deep); outline-offset:4px; }
+  .g-card.fly-out{
+    transition:transform .42s ease-in, opacity .42s ease-in;
+    opacity:0;
+  }
+  .g-media{
+    position:relative;
+    width:100%; height:78%;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .g-media svg{ width:46%; opacity:.9; }
+  .g-media::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 55%);
+  }
+  .g-caption{
+    height:22%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:.1rem;
+    background:var(--ivory);
+  }
+  .g-caption-dev{ font-family:var(--devanagari); font-size:.95rem; color:var(--maroon-dark); }
+  .g-caption-en{ font-family:var(--display); font-weight:600; font-size:1.15rem; color:var(--ink); }
+
+  .stack-controls{ display:flex; align-items:center; gap:1.1rem; }
+  .stack-next{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--maroon-dark); color:var(--ivory);
+    border:2px solid var(--gold-light);
+    font-size:1.3rem; cursor:pointer;
+    box-shadow:0 8px 20px rgba(138,78,99,.28);
+    transition:transform .25s ease, background .25s ease;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stack-next:hover{ transform:translateY(-2px) rotate(8deg); background:var(--maroon); }
+  .stack-hint{
+    font-size:.85rem; color:var(--peacock); letter-spacing:.03em;
+    font-style:italic;
+  }
+  .stack-dots{ display:flex; gap:.4rem; }
+  .stack-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--maroon); opacity:.28;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .stack-dot.active{ opacity:1; transform:scale(1.25); }
+
+  @media(max-width:520px){
+    .card-stack{ width:min(82vw, 280px); height:clamp(260px, 104vw, 360px); }
+    .stack-next{ width:46px; height:46px; font-size:1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ BACKGROUND MUSIC ============ -->
+<audio id="bgAudio" loop preload="none">
+  <source src="https://ik.imagekit.io/c9crfmeez/Navasachi%20Gauri%20Mazi%20-%20Unplugged%20Version%20_%20Nikita%20Dutta,%20Bhushan%20Pradhan,%20Abhay%20Jodhpurkar,%20Sanket%20-%20(320%20Kbps).mp3" type="audio/mpeg">
+</audio>
+<button class="sound-toggle" id="soundToggle" aria-label="Mute background music" hidden>
+  <span id="soundIcon" aria-hidden="true">🔊</span>
+</button>
+
+<!-- ============ ENTRY GATE ============ -->
+<div class="entry-gate" id="entryGate">
+  <button class="seal-btn" id="sealBtn" aria-label="Tap to open your invitation">
+    <span class="seal-inner dev">श्री</span>
+  </button>
+  <div class="entry-text">
+    <span class="entry-title">You're Invited</span>
+    <span class="entry-sub">Tap the seal to open your invitation</span>
+  </div>
+</div>
+
+<nav class="nav" id="siteNav" aria-label="Section navigation">
+  <a href="#families">Families</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#story">Our Story</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="curtain curtain-l" id="curtainL"><span class="curtain-motif dev">ॐ</span></div>
+  <div class="curtain curtain-r" id="curtainR"><span class="curtain-motif dev">श्री</span></div>
+
+  <div class="hero-content">
+    <span class="invocation dev">॥ श्री गणेशाय नमः ॥</span>
+    <h1 class="names">Manthan <span class="amp">&amp;</span> Akansha</h1>
+    <div class="names-dev dev">मंथन आणि आकांक्षा</div>
+    <p class="tagline">Together with our families, we joyfully invite you to our Shubh Vivah</p>
+  </div>
+
+  <div class="scroll-cue">
+    <span class="dev">खाली स्क्रोल करा</span>
+    <span aria-hidden="true">↓</span>
+  </div>
+</header>
+<div class="kasa-border"></div>
+
+<!-- ============ SAVE THE DATE (scratch reveal) ============ -->
+<section class="save-date" id="savedate">
+  <div class="section-wrap savedate-wrap">
+    <div class="savedate-text reveal">
+      <span class="section-eyebrow dev">अत्यंत आनंदाने</span>
+      <p class="sd-kicker">With immense joy and love</p>
+      <h2 class="sd-names">Manthan <span class="amp">&amp;</span> Akansha</h2>
+
+      <div class="scratch-wrap">
+        <div class="scratch-content" id="scratchContent">
+          <div class="sd-date-reveal">
+            <span class="sd-date-dev dev">२१ फेब्रुवारी २०२७</span>
+            <span class="sd-date-en">21<sup>st</sup> February 2027</span>
+          </div>
+          <div class="cd-unit-row">
+            <div class="cd-unit"><span class="cd-num" id="sd-days">00</span><span class="cd-label">Days</span></div>
+            <div class="cd-unit"><span class="cd-num" id="sd-hours">00</span><span class="cd-label">Hours</span></div>
+            <div class="cd-unit"><span class="cd-num" id="sd-mins">00</span><span class="cd-label">Mins</span></div>
+            <div class="cd-unit"><span class="cd-num" id="sd-secs">00</span><span class="cd-label">Secs</span></div>
+          </div>
+        </div>
+        <canvas class="scratch-canvas" id="scratchCanvas" aria-hidden="true"></canvas>
+        <div class="scratch-hint dev" id="scratchHint">✦ स्क्रॅच करून पहा · Scratch to reveal ✦</div>
+      </div>
+
+      <p class="sd-savethedate">Save the Date</p>
+      <a href="#families" class="sd-events-link">The Families <span aria-hidden="true">↓</span></a>
+    </div>
+
+    <div class="savedate-art reveal" aria-hidden="true">
+      <svg viewBox="0 0 260 320" class="couple-art">
+        <defs>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E7CE7C"/>
+            <stop offset="1" stop-color="#C9A227"/>
+          </linearGradient>
+        </defs>
+        <circle cx="95" cy="70" r="26" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+        <path d="M60 300 Q60 150 95 130 Q130 150 130 300 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+        <path d="M72 78 Q95 40 118 78" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+        <circle cx="170" cy="66" r="24" fill="none" stroke="#7A1B34" stroke-width="2.5"/>
+        <path d="M140 300 Q138 140 170 122 Q205 140 202 300 Z" fill="none" stroke="#7A1B34" stroke-width="2.5"/>
+        <path d="M150 60 Q170 150 195 90" fill="none" stroke="#7A1B34" stroke-width="2" opacity=".6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+<div class="kasa-border thin"></div>
+
+<!-- ============ THE FAMILIES ============ -->
+<section class="families" id="families">
+  <div class="section-wrap">
+    <div class="center reveal">
+      <span class="section-eyebrow dev">प्रेमाने</span>
+      <p class="fam-kicker">With love</p>
+      <h2 class="fam-title">The Families</h2>
+    </div>
+
+    <div class="fam-grid">
+      <div class="fam-card reveal">
+        <h3 class="fam-card-title">Groom's Family</h3>
+        <div class="fam-divider"></div>
+        <p class="fam-name">Mr. Placeholder Gurav</p>
+        <p class="fam-name">Mrs. Placeholder Gurav</p>
+      </div>
+      <div class="fam-card reveal">
+        <h3 class="fam-card-title">Bride's Family</h3>
+        <div class="fam-divider"></div>
+        <p class="fam-name">Shri Placeholder Sail</p>
+        <p class="fam-name">Smt. Placeholder Sail</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="kasa-border thin"></div>
+
+<!-- ============ GALLERY (card stack) ============ -->
+<section class="gallery" id="gallery">
+  <div class="section-wrap">
+    <div class="center reveal">
+      <span class="section-eyebrow dev">आठवणी</span>
+      <p class="fam-kicker">A few moments</p>
+      <h2 class="fam-title">Gallery</h2>
+    </div>
+
+    <!-- Placeholder photo cards — swap each .g-media block for a real <img src="..."> once photos are ready -->
+    <div class="stack-area reveal">
+      <div class="card-stack" id="cardStack" role="group" aria-label="Photo gallery, tap a photo to see the next one">
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: Engagement">
+          <div class="g-media" style="background:linear-gradient(150deg,#F3D9C8,#E7B7C7);">
+            <svg viewBox="0 0 100 100"><path d="M50 82 C20 60 10 38 26 24 C36 15 48 20 50 32 C52 20 64 15 74 24 C90 38 80 60 50 82 Z" fill="none" stroke="#8A4E63" stroke-width="2.5"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">1st</span><span class="g-caption-en">1st</span></div>
+        </div>
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: Haldi">
+          <div class="g-media" style="background:linear-gradient(150deg,#F5E3AE,#F0C98C);">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="26" fill="none" stroke="#8A4E63" stroke-width="2.5"/><path d="M50 24 L50 12 M50 88 L50 76 M24 50 L12 50 M88 50 L76 50" stroke="#8A4E63" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">2nd</span><span class="g-caption-en">2nd</span></div>
+        </div>
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: Mehendi">
+          <div class="g-media" style="background:linear-gradient(150deg,#D9E7D9,#B9CFC2);">
+            <svg viewBox="0 0 100 100"><path d="M50 20 C55 35 65 40 80 42 C65 46 56 55 52 70 C48 55 39 46 24 42 C39 40 48 33 50 20 Z" fill="none" stroke="#8A4E63" stroke-width="2.5"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">3rd</span><span class="g-caption-en">3rd</span></div>
+        </div>
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: Sangeet">
+          <div class="g-media" style="background:linear-gradient(150deg,#E9D6EC,#D3B4D9);">
+            <svg viewBox="0 0 100 100"><path d="M30 78 L30 34 L70 24 L70 66" fill="none" stroke="#8A4E63" stroke-width="2.5"/><circle cx="26" cy="80" r="8" fill="none" stroke="#8A4E63" stroke-width="2.5"/><circle cx="66" cy="70" r="8" fill="none" stroke="#8A4E63" stroke-width="2.5"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">4th</span><span class="g-caption-en">4th</span></div>
+        </div>
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: First trip together">
+          <div class="g-media" style="background:linear-gradient(150deg,#CFE3E6,#A9C7CC);">
+            <svg viewBox="0 0 100 100"><path d="M18 66 Q50 30 82 66" fill="none" stroke="#8A4E63" stroke-width="2.5"/><circle cx="50" cy="30" r="7" fill="none" stroke="#8A4E63" stroke-width="2.5"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">पहिला प्रवास</span><span class="g-caption-en">Our First Trip</span></div>
+        </div>
+
+        <div class="g-card" tabindex="0" role="button" aria-label="Photo: Family gathering">
+          <div class="g-media" style="background:linear-gradient(150deg,#F6DCC9,#EFC3B2);">
+            <svg viewBox="0 0 100 100"><circle cx="34" cy="42" r="12" fill="none" stroke="#8A4E63" stroke-width="2.5"/><circle cx="66" cy="42" r="12" fill="none" stroke="#8A4E63" stroke-width="2.5"/><path d="M16 82 Q34 58 52 82 M48 82 Q66 58 84 82" fill="none" stroke="#8A4E63" stroke-width="2.5"/></svg>
+          </div>
+          <div class="g-caption"><span class="g-caption-dev dev">कुटुंब मेळावा</span><span class="g-caption-en">Family Gathering</span></div>
+        </div>
+
+      </div>
+
+      <div class="stack-controls">
+        <button class="stack-next" id="stackNext" aria-label="Show next photo" type="button">↻</button>
+      </div>
+      <p class="stack-hint dev">✦ फोटोवर टॅप करा · Tap the photo to see the next ✦</p>
+      <div class="stack-dots" id="stackDots" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+<div class="kasa-border thin"></div>
+
+<!-- ============ OUR STORY ============ -->
+<section class="story" id="story">
+  <div class="section-wrap">
+    <div class="center reveal">
+      <span class="section-eyebrow dev">आमची कहाणी</span>
+      <h2 class="section-title">Our Story</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item reveal">
+        <span class="t-eyebrow dev">पहिली भेट</span>
+        <h3 class="t-title">First Meeting</h3>
+        <p class="t-text">Placeholder — how Manthan and Akansha's paths first crossed. Swap in the real story here.</p>
+      </div>
+      <div class="t-item reveal">
+        <span class="t-eyebrow dev">मैत्रीचे नाते</span>
+        <h3 class="t-title">A Friendship Grows</h3>
+        <p class="t-text">Placeholder — the moments that turned friendship into something more.</p>
+      </div>
+      <div class="t-item reveal">
+        <span class="t-eyebrow dev">साखरपुडा</span>
+        <h3 class="t-title">The Proposal</h3>
+        <p class="t-text">Placeholder — the day it became official, and the families came together.</p>
+      </div>
+      <div class="t-item reveal">
+        <span class="t-eyebrow dev">शुभ विवाहाकडे</span>
+        <h3 class="t-title">Towards the Wedding</h3>
+        <p class="t-text">Placeholder — the countdown to the big day, with love and blessings from both families.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <span class="dev">आपल्या उपस्थितीने आमचा दिवस अधिक शुभ होईल</span>
+  <div class="footer-names">Manthan &amp; Akansha</div>
+  <p class="footer-note">Your presence would mean the world to us. We look forward to celebrating this joyous occasion together.</p>
+  <div class="footer-strip"><div class="kasa-border thin"></div></div>
+</footer>
+
+<script>
+  // ---------- Elements ----------
+  const entryGate = document.getElementById('entryGate');
+  const sealBtn = document.getElementById('sealBtn');
+  const curtainL = document.getElementById('curtainL');
+  const curtainR = document.getElementById('curtainR');
+  const heroContent = document.querySelector('.hero-content');
+  const scrollCue = document.querySelector('.scroll-cue');
+  const bgAudio = document.getElementById('bgAudio');
+  const soundToggle = document.getElementById('soundToggle');
+  const soundIcon = document.getElementById('soundIcon');
+
+  // ---------- Envelope tap → open invitation ----------
+  sealBtn.addEventListener('click', () => {
+    entryGate.classList.add('hide');
+
+    // start music on this user gesture (satisfies browser autoplay rules)
+    bgAudio.play().catch(() => { /* ignore if source not yet provided */ });
+    soundToggle.hidden = false;
+
+    curtainL.classList.add('open');
+    curtainR.classList.add('open');
+    setTimeout(() => heroContent.classList.add('show'), 1900);
+    setTimeout(() => scrollCue.classList.add('show'), 2600);
+  }, { once:true });
+
+  // ---------- Sound toggle ----------
+  soundToggle.addEventListener('click', () => {
+    bgAudio.muted = !bgAudio.muted;
+    soundIcon.textContent = bgAudio.muted ? '🔇' : '🔊';
+  });
+
+  // ---------- Nav show on scroll ----------
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('show', window.scrollY > window.innerHeight * 0.7);
+  });
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---------- Countdown ----------
+  // PLACEHOLDER TIME: confirm the exact muhurat time with the family, date is fixed at 21 Feb 2027
+  const WEDDING_DATE = new Date('2027-02-21T10:00:00+05:30');
+
+  function setIfExists(id, value){
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function updateCountdown(){
+    const now = new Date();
+    let diff = WEDDING_DATE - now;
+    if (diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    const d = String(days).padStart(2,'0');
+    const h = String(hours).padStart(2,'0');
+    const m = String(mins).padStart(2,'0');
+    const s = String(secs).padStart(2,'0');
+
+    setIfExists('sd-days', d);
+    setIfExists('sd-hours', h);
+    setIfExists('sd-mins', m);
+    setIfExists('sd-secs', s);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ---------- Scratch-to-reveal (Save the Date) ----------
+  (function(){
+    const canvas = document.getElementById('scratchCanvas');
+    const wrap = document.querySelector('.scratch-wrap');
+    const hint = document.getElementById('scratchHint');
+    if (!canvas || !wrap) return;
+
+    const ctx = canvas.getContext('2d');
+    let revealed = false;
+
+    function drawScratchLayer(){
+      ctx.globalCompositeOperation = 'source-over';
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, '#BD7286');
+      grad.addColorStop(.5, '#E3B573');
+      grad.addColorStop(1, '#8A4E63');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function sizeCanvas(){
+      const rect = wrap.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      if (!revealed) drawScratchLayer();
+    }
+    sizeCanvas();
+    window.addEventListener('resize', () => { if (!revealed) sizeCanvas(); });
+
+    function getPos(e){
+      const rect = canvas.getBoundingClientRect();
+      const point = e.touches ? e.touches[0] : e;
+      return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+    }
+
+    function scratchAt(x, y){
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 26, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function checkRevealed(){
+      if (revealed) return;
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let cleared = 0, sampled = 0;
+      for (let i = 3; i < data.length; i += 4 * 20){
+        sampled++;
+        if (data[i] === 0) cleared++;
+      }
+      if (sampled && cleared / sampled > 0.5){
+        revealed = true;
+        canvas.classList.add('done');
+      }
+    }
+
+    let drawing = false;
+    function start(e){ drawing = true; move(e); }
+    function end(){ drawing = false; checkRevealed(); }
+    function move(e){
+      if (!drawing) return;
+      const { x, y } = getPos(e);
+      scratchAt(x, y);
+      hint.classList.add('done');
+      e.preventDefault();
+    }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+    canvas.addEventListener('touchstart', start, { passive:false });
+    canvas.addEventListener('touchmove', move, { passive:false });
+    canvas.addEventListener('touchend', end);
+  })();
+
+  // ---------- Gallery card stack ----------
+  (function(){
+    const stack = document.getElementById('cardStack');
+    const nextBtn = document.getElementById('stackNext');
+    const dotsWrap = document.getElementById('stackDots');
+    if (!stack) return;
+
+    let order = Array.from(stack.children);
+    const total = order.length;
+    const MAX_VISIBLE = 4;
+    let animating = false;
+
+    // build indicator dots
+    order.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'stack-dot' + (i === 0 ? ' active' : '');
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function layout(){
+      order.forEach((card, i) => {
+        card.style.zIndex = total - i;
+        const rotate = (i % 2 === 0 ? -1 : 1) * Math.min(i, 3) * 2.2;
+        const yOffset = Math.min(i, 3) * 12;
+        const scale = 1 - Math.min(i, 3) * 0.045;
+        card.style.opacity = i < MAX_VISIBLE ? 1 : 0;
+        card.style.pointerEvents = i === 0 ? 'auto' : 'none';
+        card.style.transform =
+          `translate(-50%, calc(-50% + ${yOffset}px)) scale(${scale}) rotate(${rotate}deg)`;
+      });
+      const activeIndex = order[0].dataset.idx;
+      dots.forEach((d, i) => d.classList.toggle('active', String(i) === activeIndex));
+    }
+
+    order.forEach((card, i) => { card.dataset.idx = i; });
+    layout();
+
+    function advance(){
+      if (animating) return;
+      animating = true;
+      const front = order[0];
+      const dir = Math.random() > 0.5 ? 1 : -1;
+      front.style.transition = 'transform .42s ease-in, opacity .42s ease-in';
+      front.style.transform = `translate(calc(-50% + ${dir * 60}px), -130%) rotate(${dir * 16}deg) scale(.92)`;
+      front.style.opacity = '0';
+
+      setTimeout(() => {
+        front.style.transition = 'none';
+        order.push(order.shift());
+        layout();
+        // force reflow so the transition re-applies on the next interaction
+        void front.offsetWidth;
+        front.style.transition = '';
+        animating = false;
+      }, 420);
+    }
+
+    stack.addEventListener('click', (e) => {
+      if (order[0].contains(e.target)) advance();
+    });
+    stack.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && order[0].contains(e.target)){
+        e.preventDefault();
+        advance();
+      }
+    });
+    nextBtn.addEventListener('click', advance);
+  })();
+
+  // ---------- Flower petal shower ----------
+  (function(){
+    const shower = document.createElement('div');
+    shower.className = 'petal-shower';
+    shower.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(shower);
+
+    const colors = ['#BD7286', '#EFA97E', '#E3B573', '#F5DFAE', '#7FA396'];
+    const PETAL_COUNT = 26;
+
+    for (let i = 0; i < PETAL_COUNT; i++){
+      const petal = document.createElement('span');
+      petal.className = 'petal';
+
+      const size = 8 + Math.random() * 10;           // 8–18px
+      const left = Math.random() * 100;               // vw
+      const duration = 8 + Math.random() * 5;          // normal falling speed, 8–13s
+      const delay = Math.random() * -13;                // stagger so they don't all start together
+      const drift = (Math.random() * 120 - 60).toFixed(0) + 'px';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const rotateDir = Math.random() > 0.5 ? 1 : -1;
+
+      petal.style.width = size + 'px';
+      petal.style.height = size * 0.8 + 'px';
+      petal.style.left = left + 'vw';
+      petal.style.background = color;
+      petal.style.animationDuration = duration + 's';
+      petal.style.animationDelay = delay + 's';
+      petal.style.setProperty('--drift', drift);
+      petal.style.transform = `rotate(${rotateDir * 45}deg)`;
+
+      shower.appendChild(petal);
+    }
+  })();
+</script>
+
+</body>
+</html>
