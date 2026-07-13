@@ -389,7 +389,7 @@
   /* ============ SAVE THE DATE (scratch reveal) ============ */
   .save-date{ background:var(--ivory-deep); }
   .savedate-wrap{
-    display:grid; grid-template-columns:1.15fr .85fr;
+    display:grid; grid-template-columns:1fr 1fr;
     gap:2.5rem; align-items:center;
   }
   .sd-kicker{ font-size:.95rem; color:var(--peacock); margin-top:.2rem; }
@@ -439,16 +439,67 @@
   .sd-events-link:hover{ color:var(--turmeric); }
 
   .couple-art{ width:100%; max-width:240px; margin:0 auto; display:block; }
+
+  .photo-frame{
+    position:relative;
+    width:100%; max-width:400px;
+    margin:0 auto;
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .photo-glow{
+    position:absolute; inset:-6%;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(227,181,115,.4) 0%, rgba(189,114,134,.22) 45%, transparent 72%);
+    filter:blur(16px);
+    z-index:0;
+    animation:glowPulse 4.5s ease-in-out infinite;
+  }
+  @keyframes glowPulse{
+    0%,100%{ transform:scale(1); opacity:.7; }
+    50%{ transform:scale(1.08); opacity:1; }
+  }
+  .photo-ring{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    z-index:1;
+    animation:ringSpin 32s linear infinite;
+  }
+  @keyframes ringSpin{ to{ transform:rotate(360deg); } }
+
   .couple-photo{
-    width:100%; max-width:280px; margin:0 auto; display:block;
+    position:relative; z-index:2;
+    width:78%; margin:0 auto; display:block;
     border-radius:16px; border:8px solid var(--ivory);
-    box-shadow:0 20px 44px rgba(138,78,99,.24);
+    box-shadow:0 22px 48px rgba(138,78,99,.28);
     object-fit:cover; aspect-ratio:4/5;
+    animation:photoFloat 5.5s ease-in-out infinite;
+    transition:transform .45s ease, box-shadow .45s ease;
+  }
+  .photo-frame:hover .couple-photo{
+    transform:scale(1.035) rotate(-1deg);
+    box-shadow:0 28px 56px rgba(138,78,99,.36);
+  }
+  @keyframes photoFloat{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+
+  .corner-bloom{
+    position:absolute; width:15%; z-index:3;
+    filter:drop-shadow(0 4px 8px rgba(138,78,99,.2));
+  }
+  .corner-bloom--tl{ top:2%; left:2%; animation:sway 3.6s ease-in-out infinite; }
+  .corner-bloom--br{ bottom:2%; right:2%; animation:sway 3.6s ease-in-out infinite reverse; }
+  @keyframes sway{
+    0%,100%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(8deg); }
   }
 
   @media(max-width:780px){
     .savedate-wrap{ grid-template-columns:1fr; }
-    .savedate-art{ order:-1; max-width:200px; margin:0 auto; }
+    .savedate-art{ order:-1; }
+    .photo-frame{ max-width:300px; }
   }
 
   /* ============ THE FAMILIES ============ */
@@ -681,7 +732,7 @@
           </div>
         </div>
         <canvas class="scratch-canvas" id="scratchCanvas" aria-hidden="true"></canvas>
-        <div class="scratch-hint dev" id="scratchHint">✦ स्क्रॅच करून पहा · Scratch to reveal the Date ✦</div>
+        <div class="scratch-hint dev" id="scratchHint">✦ स्क्रॅच करून पहा · Scratch to reveal ✦</div>
       </div>
 
       <p class="sd-savethedate">Save the Date</p>
@@ -689,7 +740,31 @@
     </div>
 
     <div class="savedate-art reveal">
-      <img class="couple-photo" src="https://ik.imagekit.io/c9crfmeez/IMG_20260713_122912.jpg.jpeg" alt="Manthan and Akansha">
+      <div class="photo-frame">
+        <div class="photo-glow" aria-hidden="true"></div>
+
+        <svg class="photo-ring" viewBox="0 0 300 300" aria-hidden="true">
+          <circle cx="150" cy="150" r="138" fill="none" stroke="#C99248" stroke-width="1.4" stroke-dasharray="2 10" stroke-linecap="round" opacity=".65"/>
+          <circle cx="150" cy="150" r="122" fill="none" stroke="#8FBFA0" stroke-width="1" stroke-dasharray="1 8" opacity=".5"/>
+          <g fill="none" stroke="#BD7286" stroke-width="2" opacity=".8">
+            <path transform="translate(150,12)" d="M0 10 C-5 2 -2 -6 0 -6 C2 -6 5 2 0 10 Z"/>
+            <path transform="translate(150,288) rotate(180)" d="M0 10 C-5 2 -2 -6 0 -6 C2 -6 5 2 0 10 Z"/>
+            <path transform="translate(12,150) rotate(-90)" d="M0 10 C-5 2 -2 -6 0 -6 C2 -6 5 2 0 10 Z"/>
+            <path transform="translate(288,150) rotate(90)" d="M0 10 C-5 2 -2 -6 0 -6 C2 -6 5 2 0 10 Z"/>
+          </g>
+        </svg>
+
+        <img class="couple-photo" src="https://ik.imagekit.io/c9crfmeez/IMG_20260713_122912.jpg.jpeg" alt="Manthan and Akansha">
+
+        <svg class="corner-bloom corner-bloom--tl" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="#E8AABF"><ellipse cx="20" cy="10" rx="6" ry="9"/><ellipse cx="29" cy="20" rx="9" ry="6"/><ellipse cx="20" cy="30" rx="6" ry="9"/><ellipse cx="11" cy="20" rx="9" ry="6"/></g>
+          <circle cx="20" cy="20" r="5" fill="#F5DFAE"/>
+        </svg>
+        <svg class="corner-bloom corner-bloom--br" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="#C9E4D8"><ellipse cx="20" cy="10" rx="6" ry="9"/><ellipse cx="29" cy="20" rx="9" ry="6"/><ellipse cx="20" cy="30" rx="6" ry="9"/><ellipse cx="11" cy="20" rx="9" ry="6"/></g>
+          <circle cx="20" cy="20" r="5" fill="#F5DFAE"/>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
